@@ -1,5 +1,7 @@
 {
 	"appName": "SkyTube",
 	"pasteYoutubeLink": "Paste a YouTube link",
-	"search": "Search"
+	"search": "Search",
+	"video": "Video",
+	"audio": "Audio"
 }

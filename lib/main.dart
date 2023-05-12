@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:flutter_dotenv/flutter_dotenv.dart";
 
 import "package:skytube/extensions/extensions.dart";
 import "package:skytube/l10n/l10n.dart";
@@ -7,7 +8,8 @@ import "package:skytube/routers/routers.dart";
 import "package:skytube/theme/theme.dart";
 import "package:skytube/window_sizer/window_sizer.dart";
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
   runApp(const ProviderScope(child: SkyTubeApp()));
 }
 

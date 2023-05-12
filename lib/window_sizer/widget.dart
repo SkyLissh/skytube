@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
 
 import "window_constraints.dart";
-import "window_size.dart";
 
 class WindowSizerBuilder extends StatelessWidget {
-  final Function(BuildContext context) builder;
+  final Widget Function(BuildContext context) builder;
 
   const WindowSizerBuilder({super.key, required this.builder});
 

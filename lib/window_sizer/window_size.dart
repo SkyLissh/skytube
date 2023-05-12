@@ -29,6 +29,10 @@ enum WindowSize {
   medium,
   large;
 
+  bool get isSmall => this == WindowSize.small;
+  bool get isMedium => this == WindowSize.medium;
+  bool get isLarge => this == WindowSize.large;
+
   T when<T>({
     T Function()? small,
     T Function()? medium,
