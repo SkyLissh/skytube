@@ -8,6 +8,6 @@ class SkyTubeColors {
 
   static const red500 = Color(0xFFF44336);
 
-  static const gray300 = Color(0xFFC8C8C8);
+  static const gray300 = Color(0xFFF4EAED);
   static const gray900 = Color(0xFF323232);
 }

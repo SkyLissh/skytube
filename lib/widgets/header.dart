@@ -23,6 +23,8 @@ class _SkyTubeHeaderState extends ConsumerState<SkyTubeHeader> {
 
   @override
   Widget build(BuildContext context) {
+    final video = ref.watch(videoProvider);
+
     final theme = Theme.of(context);
     final l10n = context.l10n;
 
@@ -37,11 +39,16 @@ class _SkyTubeHeaderState extends ConsumerState<SkyTubeHeader> {
       Column(children: [
         TextField(
           controller: controller,
+          textInputAction: TextInputAction.send,
+          onSubmitted: video.isLoading ? null : (_) => onSearch(),
           decoration: InputDecoration(
             hintText: l10n.pasteYoutubeLink,
             suffixIcon: Padding(
               padding: const EdgeInsets.all(Paddings.small),
-              child: _SearchButton(onPressed: onSearch),
+              child: _SearchButton(
+                onPressed: onSearch,
+                isLoading: video.isLoading,
+              ),
             ),
           ),
         ),
@@ -51,24 +58,29 @@ class _SkyTubeHeaderState extends ConsumerState<SkyTubeHeader> {
 }
 
 class _SearchButton extends ConsumerWidget {
+  final bool isLoading;
   final VoidCallback onPressed;
 
-  const _SearchButton({required this.onPressed});
+  const _SearchButton({required this.onPressed, required this.isLoading});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final video = ref.watch(videoProvider);
-
     final l10n = context.l10n;
     final windowSizer = context.windowSizer;
 
     return FilledButton(
-      onPressed: video.isLoading ? null : onPressed,
+      onPressed: isLoading ? null : onPressed,
       child: Row(mainAxisSize: MainAxisSize.min, children: [
-        const Icon(Icons.search),
+        if (isLoading)
+          const SizedBox.square(
+            dimension: 16,
+            child: CircularProgressIndicator(strokeWidth: 3),
+          )
+        else
+          const Icon(Icons.search),
         if (windowSizer.width.isLarge) ...[
           const SizedBox(width: Paddings.small),
-          if (video.isLoading)
+          if (isLoading)
             const SizedBox.square(
               dimension: 16,
               child: CircularProgressIndicator(strokeWidth: 3),
