@@ -4,6 +4,7 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:file_picker/file_picker.dart";
+import "package:path_provider/path_provider.dart";
 
 import "package:skytube/constants/constants.dart";
 import "package:skytube/extensions/extensions.dart";
@@ -63,22 +64,24 @@ class _QualityRowState extends ConsumerState<QualityRow> {
   }
 
   Future<void> _download() async {
-    final title = ref.read(videoProvider).value?.video.title;
+    final title = ref.read(videoProvider).value?.video.title.formatFileName();
 
-    late final String extension;
-    late final FileType type;
+    final String extension = widget.type.isVideo ? "mp4" : "mp3";
 
-    if (widget.type.isVideo) {
-      extension = "mp4";
-      type = FileType.video;
-    } else {
-      extension = "mp3";
-      type = FileType.audio;
+    if (Platform.isAndroid) {
+      final path = await getExternalStorageDirectory();
+      if (path == null) return;
+
+      final file = File("${path.path}/$title.$extension");
+      await file.writeAsBytes(_data!.value!);
+
+      return;
     }
 
     final file = await FilePicker.platform.saveFile(
       fileName: "$title.$extension",
-      type: type,
+      type: FileType.custom,
+      initialDirectory: (await getDownloadsDirectory())?.path,
       allowedExtensions: [extension],
     );
 
@@ -90,6 +93,7 @@ class _QualityRowState extends ConsumerState<QualityRow> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final theme = Theme.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Paddings.medium),
@@ -104,10 +108,12 @@ class _QualityRowState extends ConsumerState<QualityRow> {
             ),
             const SizedBox(width: Paddings.small),
             if (_data?.isLoading == true) ...[
-              const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(),
+              SizedBox.square(
+                dimension: 16.0,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3.0,
+                  color: theme.colorScheme.onPrimary,
+                ),
               ),
             ] else ...[
               Text(_data?.value != null ? l10n.download : l10n.convert),

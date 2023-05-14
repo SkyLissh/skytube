@@ -4,7 +4,7 @@ import "package:skytube/constants/constants.dart";
 import "package:skytube/models/models.dart";
 import "package:skytube/window_sizer/window_sizer.dart";
 
-import "quiality_tabs.dart";
+import "qualities/qualities.dart";
 
 class VideoDetail extends StatelessWidget {
   final VideoInfo videoInfo;
@@ -16,6 +16,7 @@ class VideoDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final windowSizer = context.windowSizer;
+    final theme = Theme.of(context);
 
     final children = [
       Image.network(
@@ -28,10 +29,15 @@ class VideoDetail extends StatelessWidget {
         fit: BoxFit.cover,
       ),
       const SizedBox(height: Paddings.medium),
-      Text(video.title),
+      Text(
+        video.title,
+        textAlign: TextAlign.center,
+        style: theme.textTheme.bodyLarge,
+      ),
       const SizedBox(height: Paddings.medium),
+      Text(video.duration(context)),
       const SizedBox(height: Paddings.medium),
-      QualityTabs(
+      Qualities(
         videoQualities: videoInfo.videoQualities.toList()
           ..sort((x, y) => y.size.compareTo(x.size)),
         audioQualities: videoInfo.audioQualities.toList()

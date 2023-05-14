@@ -6,5 +6,10 @@
 	"audio": "Audio",
 	"convert": "Convert",
 	"download": "Download",
-	"somethingWentWrong": "Something went wrong"
+	"somethingWentWrong": "Something went wrong",
+	"videoNotFound": "Video not found",
+	"seconds": "seconds",
+	"minutes": "minutes",
+	"hours": "hours",
+	"duration": "Duration"
 }

@@ -24,7 +24,6 @@ class _SkyTubeHeaderState extends ConsumerState<SkyTubeHeader> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final windowSizer = context.windowSizer;
     final l10n = context.l10n;
 
     return Column(children: [
@@ -42,16 +41,42 @@ class _SkyTubeHeaderState extends ConsumerState<SkyTubeHeader> {
             hintText: l10n.pasteYoutubeLink,
             suffixIcon: Padding(
               padding: const EdgeInsets.all(Paddings.small),
-              child: FilledButton(
-                onPressed: onSearch,
-                child: windowSizer.width != WindowSize.small
-                    ? Text(l10n.search)
-                    : const Icon(Icons.search),
-              ),
+              child: _SearchButton(onPressed: onSearch),
             ),
           ),
         ),
       ]),
     ]);
+  }
+}
+
+class _SearchButton extends ConsumerWidget {
+  final VoidCallback onPressed;
+
+  const _SearchButton({required this.onPressed});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final video = ref.watch(videoProvider);
+
+    final l10n = context.l10n;
+    final windowSizer = context.windowSizer;
+
+    return FilledButton(
+      onPressed: video.isLoading ? null : onPressed,
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        const Icon(Icons.search),
+        if (windowSizer.width.isLarge) ...[
+          const SizedBox(width: Paddings.small),
+          if (video.isLoading)
+            const SizedBox.square(
+              dimension: 16,
+              child: CircularProgressIndicator(strokeWidth: 3),
+            )
+          else
+            Text(l10n.search),
+        ],
+      ]),
+    );
   }
 }

@@ -12,21 +12,29 @@ class HomeScreen extends StatelessWidget {
     final windowSizer = context.windowSizer;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: windowSizer.width.when(
-            small: () => const EdgeInsets.all(Shapes.medium),
-            orElse: () => EdgeInsets.symmetric(
-              horizontal: 20.w,
-              vertical: Shapes.medium,
+      body: CustomScrollView(slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Center(
+            child: Padding(
+              padding: windowSizer.width.when(
+                small: () => const EdgeInsets.all(Shapes.medium),
+                orElse: () => EdgeInsets.symmetric(
+                  horizontal: windowSizer.width.when(
+                    medium: () => 10.w,
+                    orElse: () => 20.w,
+                  ),
+                  vertical: Shapes.medium,
+                ),
+              ),
+              child: const Column(mainAxisSize: MainAxisSize.min, children: [
+                SkyTubeHeader(),
+                SkyTubeVideo(),
+              ]),
             ),
           ),
-          child: const Column(children: [
-            SkyTubeHeader(),
-            SkyTubeVideo(),
-          ]),
         ),
-      ),
+      ]),
     );
   }
 }

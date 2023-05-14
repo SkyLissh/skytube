@@ -18,7 +18,7 @@ class VideoNotifier extends StateNotifier<AsyncValue<VideoInfo?>> {
   Future<void> search(String url) async {
     state = const AsyncValue.loading();
 
-    final uri = Uri.http(Env.skyTubeAPI, "/search/video", {"url": url});
+    final uri = Uri.https(Env.skyTubeAPI, "/search/video", {"url": url});
     final res = await http.get(uri);
 
     if (res.statusCode != 200) {
@@ -35,7 +35,7 @@ class VideoNotifier extends StateNotifier<AsyncValue<VideoInfo?>> {
     assert(label != null || bitrate != null, "Label or bitrate must be set");
 
     final path = label != null ? "download/video" : "download/audio";
-    final uri = Uri.http(Env.skyTubeAPI, path, {
+    final uri = Uri.https(Env.skyTubeAPI, path, {
       "url": url,
       "quality": label ?? bitrate!.toString(),
     });
@@ -43,12 +43,8 @@ class VideoNotifier extends StateNotifier<AsyncValue<VideoInfo?>> {
     final res = await http.get(uri);
 
     if (res.statusCode != 200) {
-      print(res.body);
-      print(res.statusCode);
       return AsyncValue.error("Download error", StackTrace.current);
     }
-
-    print(res.body);
 
     return AsyncValue.data(res.bodyBytes);
   }

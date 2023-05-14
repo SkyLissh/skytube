@@ -1,6 +1,9 @@
 // ignore_for_file: invalid_annotation_target
 
+import "package:flutter/material.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
+
+import "package:skytube/extensions/extensions.dart";
 
 part "video.freezed.dart";
 part "video.g.dart";
@@ -24,17 +27,25 @@ class Video with _$Video {
   factory Video.fromJson(final Map<String, dynamic> json) =>
       _$VideoFromJson(json);
 
-  Duration get duration {
-    final parts = durationString.split(":");
-    final hours = int.parse(parts[0]);
-    final minutes = int.parse(parts[1]);
-    final seconds = int.parse(parts[2]);
+  String duration(BuildContext context) {
+    final l10n = context.l10n;
 
-    return Duration(
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    );
+    final parts = durationString.split(":");
+    final hours = int.parse(parts[0]) >= 1 ? "${parts[0]}:" : "";
+    final minutes = int.parse(parts[1]) >= 1 ? "${parts[1]}:" : "";
+    final seconds = int.parse(parts[2]) >= 1 ? parts[2] : "";
+
+    late final String time;
+
+    if (hours.isNotEmpty) {
+      time = l10n.hours;
+    } else if (minutes.isNotEmpty) {
+      time = l10n.minutes;
+    } else {
+      time = l10n.seconds;
+    }
+
+    return "${l10n.duration}: $hours$minutes$seconds $time";
   }
 }
 
