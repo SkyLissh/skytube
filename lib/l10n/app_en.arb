@@ -3,5 +3,8 @@
 	"pasteYoutubeLink": "Paste a YouTube link",
 	"search": "Search",
 	"video": "Video",
-	"audio": "Audio"
+	"audio": "Audio",
+	"convert": "Convert",
+	"download": "Download",
+	"somethingWentWrong": "Something went wrong"
 }

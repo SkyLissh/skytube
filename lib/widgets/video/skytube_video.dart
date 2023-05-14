@@ -1,12 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
-import "package:skytube/constants/constants.dart";
 import "package:skytube/providers/providers.dart";
 import "package:skytube/widgets/video/video_detail.dart";
-import "package:skytube/window_sizer/window_sizer.dart";
-
-import "quiality_tabs.dart";
 
 class SkyTubeVideo extends ConsumerWidget {
   const SkyTubeVideo({super.key});

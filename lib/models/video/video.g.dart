@@ -12,6 +12,7 @@ _$_Video _$$_VideoFromJson(Map<String, dynamic> json) => _$_Video(
       description: json['description'] as String,
       author: Author.fromJson(json['author'] as Map<String, dynamic>),
       uploadDate: DateTime.parse(json['uploadDate'] as String),
+      url: json['url'] as String,
       durationString: json['duration'] as String,
       thumbnails: (json['thumbnails'] as List<dynamic>)
           .map((e) => Thumbnail.fromJson(e as Map<String, dynamic>))
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_VideoToJson(_$_Video instance) => <String, dynamic>{
       'description': instance.description,
       'author': instance.author,
       'uploadDate': instance.uploadDate.toIso8601String(),
+      'url': instance.url,
       'duration': instance.durationString,
       'thumbnails': instance.thumbnails,
       'engagement': instance.engagement,

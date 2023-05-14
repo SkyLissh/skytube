@@ -25,6 +25,7 @@ mixin _$Video {
   String get description => throw _privateConstructorUsedError;
   Author get author => throw _privateConstructorUsedError;
   DateTime get uploadDate => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
   @JsonKey(name: "duration")
   @protected
   String get durationString => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $VideoCopyWith<$Res> {
       String description,
       Author author,
       DateTime uploadDate,
+      String url,
       @JsonKey(name: "duration") @protected String durationString,
       List<Thumbnail> thumbnails,
       Engagement engagement});
@@ -74,6 +76,7 @@ class _$VideoCopyWithImpl<$Res, $Val extends Video>
     Object? description = null,
     Object? author = null,
     Object? uploadDate = null,
+    Object? url = null,
     Object? durationString = null,
     Object? thumbnails = null,
     Object? engagement = null,
@@ -99,6 +102,10 @@ class _$VideoCopyWithImpl<$Res, $Val extends Video>
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
       durationString: null == durationString
           ? _value.durationString
           : durationString // ignore: cast_nullable_to_non_nullable
@@ -151,6 +158,7 @@ abstract class _$$_VideoCopyWith<$Res> implements $VideoCopyWith<$Res> {
       String description,
       Author author,
       DateTime uploadDate,
+      String url,
       @JsonKey(name: "duration") @protected String durationString,
       List<Thumbnail> thumbnails,
       Engagement engagement});
@@ -177,6 +185,7 @@ class __$$_VideoCopyWithImpl<$Res> extends _$VideoCopyWithImpl<$Res, _$_Video>
     Object? description = null,
     Object? author = null,
     Object? uploadDate = null,
+    Object? url = null,
     Object? durationString = null,
     Object? thumbnails = null,
     Object? engagement = null,
@@ -202,6 +211,10 @@ class __$$_VideoCopyWithImpl<$Res> extends _$VideoCopyWithImpl<$Res, _$_Video>
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
       durationString: null == durationString
           ? _value.durationString
           : durationString // ignore: cast_nullable_to_non_nullable
@@ -227,6 +240,7 @@ class _$_Video extends _Video {
       required this.description,
       required this.author,
       required this.uploadDate,
+      required this.url,
       @JsonKey(name: "duration") @protected required this.durationString,
       required final List<Thumbnail> thumbnails,
       required this.engagement})
@@ -247,6 +261,8 @@ class _$_Video extends _Video {
   @override
   final DateTime uploadDate;
   @override
+  final String url;
+  @override
   @JsonKey(name: "duration")
   @protected
   final String durationString;
@@ -263,7 +279,7 @@ class _$_Video extends _Video {
 
   @override
   String toString() {
-    return 'Video(id: $id, title: $title, description: $description, author: $author, uploadDate: $uploadDate, durationString: $durationString, thumbnails: $thumbnails, engagement: $engagement)';
+    return 'Video(id: $id, title: $title, description: $description, author: $author, uploadDate: $uploadDate, url: $url, durationString: $durationString, thumbnails: $thumbnails, engagement: $engagement)';
   }
 
   @override
@@ -278,6 +294,7 @@ class _$_Video extends _Video {
             (identical(other.author, author) || other.author == author) &&
             (identical(other.uploadDate, uploadDate) ||
                 other.uploadDate == uploadDate) &&
+            (identical(other.url, url) || other.url == url) &&
             (identical(other.durationString, durationString) ||
                 other.durationString == durationString) &&
             const DeepCollectionEquality()
@@ -295,6 +312,7 @@ class _$_Video extends _Video {
       description,
       author,
       uploadDate,
+      url,
       durationString,
       const DeepCollectionEquality().hash(_thumbnails),
       engagement);
@@ -320,6 +338,7 @@ abstract class _Video extends Video {
       required final String description,
       required final Author author,
       required final DateTime uploadDate,
+      required final String url,
       @JsonKey(name: "duration")
       @protected
           required final String durationString,
@@ -339,6 +358,8 @@ abstract class _Video extends Video {
   Author get author;
   @override
   DateTime get uploadDate;
+  @override
+  String get url;
   @override
   @JsonKey(name: "duration")
   @protected

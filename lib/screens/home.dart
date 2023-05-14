@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 
 import "package:skytube/constants/constants.dart";
-import "package:skytube/extensions/extensions.dart";
 import "package:skytube/widgets/widgets.dart";
 import "package:skytube/window_sizer/window_sizer.dart";
 

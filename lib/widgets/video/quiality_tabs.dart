@@ -22,6 +22,8 @@ class QualityTabs extends StatefulWidget {
 
 class _QualityTabsState extends State<QualityTabs> {
   int _selected = 0;
+  QualityType get _type =>
+      _selected == 0 ? QualityType.video : QualityType.audio;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class _QualityTabsState extends State<QualityTabs> {
       const SizedBox(height: Paddings.medium),
       Column(
         children: list.map((item) {
-          return QualityRow(item);
+          return QualityRow(quality: item, type: _type);
         }).toList(),
       ),
     ]);

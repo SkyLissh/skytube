@@ -15,6 +15,7 @@ class Video with _$Video {
     required final String description,
     required final Author author,
     required final DateTime uploadDate,
+    required final String url,
     @JsonKey(name: "duration") @protected required final String durationString,
     required final List<Thumbnail> thumbnails,
     required final Engagement engagement,

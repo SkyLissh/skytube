@@ -1,4 +1,5 @@
 import "dart:convert";
+import "dart:typed_data";
 
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:http/http.dart" as http;
@@ -27,5 +28,28 @@ class VideoNotifier extends StateNotifier<AsyncValue<VideoInfo?>> {
 
     final data = json.decode(res.body);
     state = AsyncValue.data(VideoInfo.fromJson(data));
+  }
+
+  Future<AsyncValue<Uint8List>> download(String url,
+      {String? label, double? bitrate}) async {
+    assert(label != null || bitrate != null, "Label or bitrate must be set");
+
+    final path = label != null ? "download/video" : "download/audio";
+    final uri = Uri.http(Env.skyTubeAPI, path, {
+      "url": url,
+      "quality": label ?? bitrate!.toString(),
+    });
+
+    final res = await http.get(uri);
+
+    if (res.statusCode != 200) {
+      print(res.body);
+      print(res.statusCode);
+      return AsyncValue.error("Download error", StackTrace.current);
+    }
+
+    print(res.body);
+
+    return AsyncValue.data(res.bodyBytes);
   }
 }
